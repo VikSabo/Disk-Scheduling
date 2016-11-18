@@ -3,6 +3,7 @@
 #include <math.h>
 
 /*Size of the cylinder*/
+//#define size_cylinder 9
 #define size_cylinder 10
 //#define size_cylinder 8
 /*Maximum size disk*/
@@ -12,6 +13,7 @@
 
 
 //Create a int array for testing
+//int cylinder[size_cylinder] = {86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130};
 int cylinder[size_cylinder] = {2069, 1212, 2296, 2800, 544, 1618, 356, 1523, 4965, 3681};
 //int cylinder[size_cylinder] = {98,183,37,122,14,124,65,67};
 //int cylinder[size_cylinder] = {95, 180, 34, 119, 11, 123, 62, 64};
@@ -42,7 +44,9 @@ void FCFS(){
     for(j = -1; j <= size_cylinder-1; j++)
     {
         diferencia = abs(cylinder[j+1]-cylinder[j]);
-        seek += diferencia;
+        if (cylinder[j+1] != 0) {
+            seek += diferencia;
+        }
         printf("%d ", cylinder[j]);
     }
     printf("\n Tiempo total del seek es %d\t", seek);
@@ -109,42 +113,39 @@ void scan(){
     n = n + 1;
 
     // sorting the queue
-    for(i=0;i<n;i++)
-    {
-      for(j=i;j<n;j++)
-      {
-        if(cylinder[i] > cylinder[j])
-        {
+    for(i=0;i<n;i++) {
+      for(j=i;j<n;j++) {
+        if(cylinder[i] > cylinder[j]) {
             temp = cylinder[i];
             cylinder[i] = cylinder[j];
             cylinder[j] = temp;
         }
       }
-     }
+    }
 
-    max = cylinder[n];
-
-    for(i = 0; i < n;i++)
-    {
-        if(cabeza == cylinder[i])
-        {
+    for(i = 0; i < n;i++) {
+        if(cabeza == cylinder[i]) {
             dloc = i; break;
         }
-    }
+    }    
 
-    for(i = dloc ; i >= 0; i--)
-    {
+    for(i = dloc ; i < n; i++) {
         printf("%d ",cylinder[i]);
-        diferencia1 = diferencia1 + abs(cylinder[i]-cylinder[i-1]);
-
-    }
+        if (cylinder[i+1] != 0) {
+            diferencia1 = diferencia1 + abs(cylinder[i]-cylinder[i+1]);
+        }
+    }    
+    
+    printf("%d ", max_size_cylinder);
+    diferencia1 += (abs(cylinder[n-1]-max_size_cylinder));
     diferencia3 = diferencia1;
-
-    printf("0 ");
-    for(i = dloc + 1; i < n; i++)
-    {
-        printf("%d ",cylinder[i]);
-        diferencia1 = diferencia2 + abs(cylinder[i]-cylinder[i+1]);
+    diferencia1 = 0;
+    diferencia1 = abs(cylinder[dloc-1]-max_size_cylinder);    
+    for(i = dloc -1 ; i >= 0; i--) {
+        printf("%d ", cylinder[i]);
+        if (cylinder[i-1] != 0) {
+            diferencia1 = diferencia1 + abs(cylinder[i]-cylinder[i-1]);   
+        }
     }
 
     seek = diferencia3 + diferencia1;
@@ -199,7 +200,7 @@ void c_scan() {
 
     diferencia3 = diferencia1;
     diferencia1 = max_size_cylinder - cylinder[i];//no sé si está pero sería el primero con el último
-    printf("%d ", diferencia1);
+    printf("%d ", max_size_cylinder);
     printf("%d ", cylinder[i]);
 
     for(i = size_cylinder; i > dloc; i--) {
