@@ -3,8 +3,8 @@
 #include <math.h>
 
 /*Size of the cylinder*/
-//#define size_cylinder 9
-#define size_cylinder 10
+#define size_cylinder 1000
+//#define size_cylinder 10
 //#define size_cylinder 8
 /*Maximum size disk*/
 //just with the example
@@ -13,8 +13,9 @@
 
 
 //Create a int array for testing
+int cylinder[size_cylinder];
 //int cylinder[size_cylinder] = {86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130};
-int cylinder[size_cylinder] = {2069, 1212, 2296, 2800, 544, 1618, 356, 1523, 4965, 3681};
+//int cylinder[size_cylinder] = {2069, 1212, 2296, 2800, 544, 1618, 356, 1523, 4965, 3681};
 //int cylinder[size_cylinder] = {98,183,37,122,14,124,65,67};
 //int cylinder[size_cylinder] = {95, 180, 34, 119, 11, 123, 62, 64};
 
@@ -25,7 +26,6 @@ void generate_cylinder(){
     {
         numero = rand()%size_cylinder;
         cylinder[i] = numero;
-        printf("%d ", numero);
     }
 }
 
@@ -33,8 +33,8 @@ void generate_cylinder(){
 void FCFS(){
     int n,cabeza,i,j,k,seek=0,diferencia;
     float promedio;
-
-    printf("\t FCFS Algoritmo\n");
+    generate_cylinder();
+    printf("\t First-Come, First-Served Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d", &cabeza);
@@ -57,6 +57,8 @@ void FCFS(){
 void SSTF(){
     int t[size_cylinder],cabeza,seek=0,n,i,j,temp;
     float promedio;
+    generate_cylinder();
+    printf("\t Shortest Seek Time First Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d", &cabeza);
@@ -99,12 +101,13 @@ void SSTF(){
 }
 
 void scan(){
-
     int i,j,seek = 0,n= size_cylinder;
     int cabeza,diferencia1=0,diferencia2=0,diferencia3=0;
     int temp,max;
     int dloc;   //loc of disk in array
     float promedio;
+    generate_cylinder();
+    printf("\t SCAN Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d",&cabeza);
@@ -161,6 +164,8 @@ void c_scan() {
     int temp,max;
     int dloc;   //loc of disk in array
     float promedio;
+    generate_cylinder();
+    printf("\t C-SCAN Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d",&cabeza);
@@ -220,6 +225,8 @@ void look() {
     int temp,max;
     int dloc;   //loc of disk in array
     float promedio;
+    generate_cylinder();
+    printf("\t LOCK Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d",&cabeza);
@@ -278,6 +285,8 @@ void c_look() {
     int temp,max;
     int dloc;   //loc of disk in array
     float promedio;
+    generate_cylinder();
+    printf("\t C-LOOK Algoritmo\n");
 
     printf("Ingrese la posicion inicial de la cabeza\n");
     scanf("%d",&cabeza);
@@ -330,7 +339,7 @@ void c_look() {
 void menu() {
     int opcion = 0;
 
-    while (opcion != 4) {
+    while (opcion != 7) {
         printf("\n\n\n");
         printf("Elija la opción: \n");
         printf("1 - FCFS\n");
